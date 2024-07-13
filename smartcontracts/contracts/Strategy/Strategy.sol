@@ -63,6 +63,11 @@ contract BaseStrategy is Ownable, ReentrancyGuard, IStrategyComplete {
         strategist = _strategist;
     }
 
+    function setVault(address _vault) external onlyOwner {
+        require(vault == address(0));
+        vault = _vault;
+    }
+
     function beforeDeposit() external override onlyVault {}
 
     function deposit() external override onlyVault nonReentrant {

@@ -56,6 +56,8 @@ async function deployVault(
     );
 
     return { vault, underlyingToken, strategy };
+
+    await strategy.setVault(vault.address);
 }
 
 export { deployVault, VaultDeployed };

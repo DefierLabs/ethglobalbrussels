@@ -46,6 +46,10 @@ describe("BeefyVaultV6", function () {
         vault = deployed.vault;
         underlyingToken = deployed.underlyingToken;
         strategy = deployed.strategy;
+
+         // Transfer tokens from deployer to user
+         const transferAmount = ethers.utils.parseEther("1000");
+         await underlyingToken.connect(deployer).transfer(await user.getAddress(), transferAmount);
     });
 
     describe("Deployment", function () {
