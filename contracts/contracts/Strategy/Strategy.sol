@@ -27,14 +27,12 @@ contract BaseStrategy is Ownable, ReentrancyGuard, IStrategyComplete {
 
     constructor(
         address _want,
-        address _vault,
         address _keeper,
         address _unirouter,
         address _beefyFeeRecipient,
         address _strategist
     ) {
         want = IERC20(_want);
-        vault = _vault;
         keeper = _keeper;
         unirouter = _unirouter;
         beefyFeeRecipient = _beefyFeeRecipient;
@@ -64,7 +62,7 @@ contract BaseStrategy is Ownable, ReentrancyGuard, IStrategyComplete {
     }
 
     function setVault(address _vault) external onlyOwner {
-        require(vault == address(0));
+        require(vault == address(0), 'Vault Already Set');
         vault = _vault;
     }
 
