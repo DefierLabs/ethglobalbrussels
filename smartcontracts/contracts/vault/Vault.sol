@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts-0.8/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts-0.8/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts-0.8/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts-0.8/access/Ownable.sol";
+import "@openzeppelin/contracts-0.8/security/ReentrancyGuard.sol";
 
-import "../interfaces/beefy/IStrategy.sol";
+import "../interfaces/IStrategy.sol";
 
 /**
  * @dev Implementation of a vault to deposit funds for yield optimizing.
