@@ -2,14 +2,14 @@ import hre, { ethers, network } from "hardhat";
 import { Signer } from "ethers";
 import { expect } from "chai";
 import { deployVault, VaultDeployed } from "../../scripts/deployContracts";
-import { BeefyVaultV6, MockERC20, MockStrategy } from "../../types/generated"; // Adjust import paths accordingly
+import { BeefyVaultV6, MockERC20, BaseStrategy } from "../../types/generated"; // Adjust import paths accordingly
 
 describe("BeefyVaultV6", function () {
     let deployer: Signer;
     let user: Signer;
     let vault: BeefyVaultV6;
     let underlyingToken: MockERC20;
-    let strategy: MockStrategy;
+    let strategy: BaseStrategy;
     let approvalDelay: number;
 
     before(async () => {
@@ -19,6 +19,7 @@ describe("BeefyVaultV6", function () {
                 {
                     forking: {
                         jsonRpcUrl: process.env.NODE_URL,
+                        blockNumber: 20298554,
                     },
                 },
             ],
@@ -33,7 +34,7 @@ describe("BeefyVaultV6", function () {
         const tokenName = "Vault Token";
         const tokenSymbol = "vMTK";
 
-        // Deploy the vault, underlying token, and mock strategy
+        // Deploy the vault, underlying token, and base strategy
         const deployed: VaultDeployed = await deployVault(
             hre,
             deployer,
@@ -106,14 +107,28 @@ describe("BeefyVaultV6", function () {
 
     describe("Strategy Management", function () {
         it("Should propose a new strategy", async function () {
-            const newStrategy = await (await ethers.getContractFactory("Strategy")).deploy(underlyingToken.address);
+            const newStrategy = await (await ethers.getContractFactory("BaseStrategy")).deploy(
+                underlyingToken.address,
+                ethers.constants.AddressZero,
+                await deployer.getAddress(),
+                ethers.constants.AddressZero,
+                ethers.constants.AddressZero,
+                ethers.constants.AddressZero
+            );
             await vault.connect(deployer).proposeStrat(newStrategy.address);
 
             expect((await vault.stratCandidate()).implementation).to.equal(newStrategy.address);
         });
 
         it("Should upgrade to the new strategy after approval delay", async function () {
-            const newStrategy = await (await ethers.getContractFactory("Strategy")).deploy(underlyingToken.address);
+            const newStrategy = await (await ethers.getContractFactory("BaseStrategy")).deploy(
+                underlyingToken.address,
+                ethers.constants.AddressZero,
+                await deployer.getAddress(),
+                ethers.constants.AddressZero,
+                ethers.constants.AddressZero,
+                ethers.constants.AddressZero
+            );
             await vault.connect(deployer).proposeStrat(newStrategy.address);
 
             // Simulate time passing

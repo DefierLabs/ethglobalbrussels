@@ -2,12 +2,13 @@ import { Signer } from "ethers";
 import hre, { ethers, network } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { deployContract } from "../tasks/utils";
-import { BeefyVaultV6__factory, BeefyVaultV6, MockERC20__factory, MockERC20, MockStrategy__factory, MockStrategy } from "../types/generated"; // Adjust import paths accordingly
+import { BeefyVaultV6__factory, BeefyVaultV6, MockERC20__factory, MockERC20, BaseStrategy__factory, BaseStrategy } from "../types/generated"; // Adjust import paths accordingly
+
 
 interface VaultDeployed {
     vault: BeefyVaultV6;
     underlyingToken: MockERC20;
-    strategy: MockStrategy;
+    strategy: BaseStrategy;
 }
 
 async function deployVault(
@@ -33,11 +34,11 @@ async function deployVault(
     );
 
     // Deploy the strategy contract
-    const strategy = await deployContract<MockStrategy>(
+    const strategy = await deployContract<BaseStrategy>(
         hre,
-        new MockStrategy__factory(deployer),
-        "MockStrategy",
-        [underlyingToken.address, ethers.constants.AddressZero], // Passing zero address for vault initially
+        new BaseStrategy__factory(deployer),
+        "BaseStrategy",
+        [underlyingToken.address, ethers.constants.AddressZero, deployer.address, ethers.constants.AddressZero, ethers.constants.AddressZero, ethers.constants.AddressZero], // Passing zero address for unirouter, beefyFeeRecipient, and strategist initially
         {},
         debug,
         waitForBlocks,
@@ -53,10 +54,6 @@ async function deployVault(
         debug,
         waitForBlocks,
     );
-
-    // Update the strategy to use the deployed vault
-    await strategy.transferOwnership(vault.address); // Transfer strategy ownership to vault
-    await strategy.setVault(vault.address); // Assuming setVault is implemented
 
     return { vault, underlyingToken, strategy };
 }
