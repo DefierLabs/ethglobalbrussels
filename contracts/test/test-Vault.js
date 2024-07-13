@@ -1,9 +1,9 @@
 const { BN, expectRevert, send, ether } = require('@openzeppelin/test-helpers');
-const BeefyVaultV6 = artifacts.require("BeefyVaultV6");
+const Vault = artifacts.require("Vault");
 const MockERC20 = artifacts.require("MockERC20");
 const BaseStrategy = artifacts.require("BaseStrategy");
 
-contract("BeefyVaultV6", accounts => {
+contract("Vault", accounts => {
     let deployer = accounts[0];
     let user = accounts[1];
     let vault;
@@ -25,8 +25,8 @@ contract("BeefyVaultV6", accounts => {
             { from: deployer }
         );
 
-        // Deploy BeefyVaultV6
-        vault = await BeefyVaultV6.new(
+        // Deploy Vault
+        vault = await Vault.new(
             strategy.address,
             "Vault Token",
             "vMTK",

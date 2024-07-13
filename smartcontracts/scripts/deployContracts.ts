@@ -2,11 +2,11 @@ import { Signer } from "ethers";
 import hre, { ethers, network } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { deployContract } from "../tasks/utils";
-import { BeefyVaultV6__factory, BeefyVaultV6, MockERC20__factory, MockERC20, BaseStrategy__factory, BaseStrategy } from "../types/generated"; // Adjust import paths accordingly
+import { Vault__factory, Vault, MockERC20__factory, MockERC20, BaseStrategy__factory, BaseStrategy } from "../types/generated"; // Adjust import paths accordingly
 
 
 interface VaultDeployed {
-    vault: BeefyVaultV6;
+    vault: Vault;
     underlyingToken: MockERC20;
     strategy: BaseStrategy;
 }
@@ -45,10 +45,10 @@ async function deployVault(
     );
 
     // Deploy the vault contract
-    const vault = await deployContract<BeefyVaultV6>(
+    const vault = await deployContract<Vault>(
         hre,
-        new BeefyVaultV6__factory(deployer),
-        "BeefyVaultV6",
+        new Vault__factory(deployer),
+        "Vault",
         [strategy.address, tokenName, tokenSymbol, approvalDelay],
         {},
         debug,
