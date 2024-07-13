@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.6.0 <0.9.0;
+pragma solidity ^0.8.0;
 
-"@openzeppelin/contracts-0.8/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts-0.8/token/ERC20/IERC20.sol";
 
 interface IStrategy {
     function vault() external view returns (address);
