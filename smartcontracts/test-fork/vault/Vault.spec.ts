@@ -2,12 +2,12 @@ import hre, { ethers, network } from "hardhat";
 import { Signer } from "ethers";
 import { expect } from "chai";
 import { deployVault, VaultDeployed } from "../../scripts/deployContracts";
-import { BeefyVaultV6, MockERC20, BaseStrategy } from "../../types/generated"; // Adjust import paths accordingly
+import { Vault, MockERC20, BaseStrategy } from "../../types/generated"; // Adjust import paths accordingly
 
-describe("BeefyVaultV6", function () {
+describe("Vault", function () {
     let deployer: Signer;
     let user: Signer;
-    let vault: BeefyVaultV6;
+    let vault: Vault;
     let underlyingToken: MockERC20;
     let strategy: BaseStrategy;
     let approvalDelay: number;
