@@ -30,12 +30,12 @@ const compilerSettings = {
 
 const config: HardhatUserConfig = {
     defaultNetwork: "hardhat",
-    gasReporter: {
-        currency: "USD",
-        enabled: process.env.DISABLE_GAS_REPORT ? false : true,
-        excludeContracts: [],
-        src: "./contracts",
-    },
+    // gasReporter: {
+    //     currency: "USD",
+    //     enabled: process.env.DISABLE_GAS_REPORT ? false : true,
+    //     excludeContracts: [],
+    //     src: "./contracts",
+    // },
     networks: {
         hardhat: {
             chainId: chainIds.hardhat,
