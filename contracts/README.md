@@ -1,3 +1,5 @@
+deploy address: 0x9C1c63264bD6C34fcedc6B421d9F27B90EF2E5d8
+
 # Truffle-Hardhat-Template
 
 ### Author: Hephyrius
