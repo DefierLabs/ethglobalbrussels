@@ -27,6 +27,7 @@
     "hardhat": "^2.12.2"
   },
   "dependencies": {
+    "@chainlink/contracts": "^1.1.1",
     "@openzeppelin/test-helpers": "^0.5.16",
     "@truffle/hdwallet-provider": "^2.1.1",
     "@uniswap/v2-core": "^1.0.1",

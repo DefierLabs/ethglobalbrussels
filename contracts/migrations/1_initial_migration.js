@@ -1,8 +1,7 @@
+const OpulentSilver = artifacts.require("OpulentSilver");
 
-const contract  = artifacts.require ("./Example.sol");
-
-module.exports = async(deployer) => {
-  var deployedContract = await contract.new() 
-  console.log(deployedContract.address)
+module.exports = async function(deployer) {
+  await deployer.deploy(OpulentSilver);
+  const deployedContract = await OpulentSilver.deployed();
+  console.log(`OpulentSilver deployed at address: ${deployedContract.address}`);
 };
-
