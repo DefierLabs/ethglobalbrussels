@@ -100,12 +100,16 @@ contract OpulentRequest is Ownable {
         emit Withdrawal(to, amount);
     }
 
-    // function reconcilePrediction(uint256 requestId, uint80 actualValue) public view returns (int256) {
-    //     PredictionResponse memory response = predictions[requestId];
-    //     uint80 predictedValue = response.prediction[response.prediction.length - 1];
-    //     int256 difference = int256(actualValue) - int256(predictedValue);
-    //     return (difference * 10000) / int256(actualValue); // percentage difference in basis points (1/100th of a percent)
-    // }
+    function reconcilePrediction(uint256 requestId) public view returns (int256) {
+        PredictionResponse memory response = predictions[requestId];
+        IChainlinkAggregator aggregator = IChainlinkAggregator(tokenToFeed[response.token]);
+        (, int256 actualValue,,,) = aggregator.latestRoundData();
+        uint80 predictedValue = response.prediction[response.prediction.length - 1];
+        int256 intPredictedValue = int256(uint256(predictedValue));
+        int256 difference = actualValue - intPredictedValue;
+        return (difference * 10000) / actualValue; // percentage difference in basis points (1/100th of a percent)
+    }
+
 
     receive() external payable {}
 }

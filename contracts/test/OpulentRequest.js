@@ -130,10 +130,10 @@ contract("OpulentRequest", async accounts => {
     );
   });
 
-//   it('should reconcile prediction correctly', async () => {
-//     await opulentRequest.addAllowedAI(accounts[1], {from: accounts[0]});
-//     await opulentRequest.postPrediction(1, [100, 110, 120], 1, 10, {from: accounts[1]});
-//     const difference = await opulentRequest.reconcilePrediction(1, 130);
-//     assert(difference.eq(new BN(769)), "Percentage difference should be correctly calculated in basis points");
-//   });
+  it('should reconcile prediction correctly', async () => {
+    await opulentRequest.addAllowedAI(accounts[1], {from: accounts[0]});
+    await opulentRequest.postPrediction(1, [100, 110, 120], 1, 10, {from: accounts[1]});
+    const difference = await opulentRequest.reconcilePrediction(1, 130);
+    assert(difference.eq(new BN(769)), "Percentage difference should be correctly calculated in basis points");
+  });
 });
