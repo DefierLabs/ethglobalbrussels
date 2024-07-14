@@ -16,7 +16,7 @@ export default function Footer() {
         </Typography>
         <Typography align="center" color="white">
           <IconButton color="inherit" href="/" align="right">
-            Opulent 2023 ©{' '} Built for ETHGlobal Brussels
+            Opulent 2024 ©{' '} Built for ETHGlobal Brussels
           </IconButton>
         </Typography>
       </Card>
